@@ -1,0 +1,15 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "4567:4567"
+    environment:
+      RACK_ENV: development
+      JWT_SECRET: ${JWT_SECRET:-change_me_in_production}
+    volumes:
+      - ./backend:/app
+      - backend_db:/app/db
+
+volumes:
+  backend_db:

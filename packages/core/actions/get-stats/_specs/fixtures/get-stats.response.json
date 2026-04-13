@@ -1,0 +1,18 @@
+{
+  "total_events": 1000,
+  "total_devices": 5,
+  "events_today": 37,
+  "events_last_7d": 240,
+  "averages": {
+    "ph": 7.21,
+    "tmp": 23.4,
+    "cnd": 621.8,
+    "ntu": 1.278,
+    "vbat": 3.88,
+    "rssi": -74.5
+  },
+  "events_per_device": [
+    { "device_id": "DEV001", "count": 200 },
+    { "device_id": "DEV002", "count": 200 }
+  ]
+}

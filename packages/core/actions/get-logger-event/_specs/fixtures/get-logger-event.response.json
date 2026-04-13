@@ -1,0 +1,18 @@
+{
+  "id": 901,
+  "key_tag": "TAG0901",
+  "device_id": "DEV003",
+  "key_ncy": 433.2,
+  "key_ph": 7.14,
+  "key_mtu": 18.23,
+  "key_tur": 9.42,
+  "key_cnd": 501.4,
+  "key_tmp": 24.1,
+  "key_ntu": 1.532,
+  "key_vbat": 3.79,
+  "key_nsat": 12,
+  "key_rssi": -69,
+  "sensor_data": "aabbccddeeff00112233445566778899aabbccddeeff00112233445566778899",
+  "created_at": "2026-04-13T10:00:00Z",
+  "updated_at": "2026-04-13T10:00:00Z"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "highcharts": "^12.3.0",
+    "highcharts-react-official": "^3.2.3",
+    "@mantine/core": "^9",
+    "@mantine/hooks": "^9",
+    "@mantine/modals": "^9",
+    "@mantine/form": "^9",
+    "@mantine/notifications": "^9",
+    "@tanstack/react-table": "^8"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}

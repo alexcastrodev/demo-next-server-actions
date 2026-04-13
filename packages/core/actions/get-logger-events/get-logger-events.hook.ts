@@ -1,0 +1,29 @@
+import {
+  keepPreviousData,
+  useQuery,
+  type UseQueryOptions,
+} from "@tanstack/react-query";
+import { getLoggerEvents } from "./get-logger-events.request";
+import type { GetLoggerEventsParams } from "./get-logger-events.types";
+import type { LoggerEvent, Result } from "../../entities";
+
+export const getLoggerEventsKey = ["logger-events"];
+
+export function useGetLoggerEvents(
+  params: GetLoggerEventsParams = {},
+  queryProps?: UseQueryOptions<Result<LoggerEvent>>,
+) {
+  return useQuery<Result<LoggerEvent>>({
+    queryKey: [
+      ...getLoggerEventsKey,
+      params.page ?? null,
+      params.per_page ?? null,
+      params.device_id ?? null,
+      params.sort_by ?? null,
+      params.sort_dir ?? null,
+    ],
+    queryFn: () => getLoggerEvents(params),
+    placeholderData: keepPreviousData,
+    ...queryProps,
+  });
+}

@@ -1,0 +1,24 @@
+{
+  "name": "modules",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@mantine/core": "^9",
+    "@tabler/icons-react": "^3",
+    "@tanstack/react-table": "^8",
+    "core": "*",
+    "next": "16.2.3",
+    "ui": "*"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}
