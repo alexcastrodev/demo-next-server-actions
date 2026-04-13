@@ -4,7 +4,7 @@ import { createElement, type PropsWithChildren } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import { useGetLoggerEvents } from "../get-logger-events.hook";
-import { getLoggerEvents } from "../get-logger-events.request";
+import { getLoggerEventsAction } from "../get-logger-events.action";
 import type {
   GetLoggerEventsParams,
   GetLoggerEventsRawResponse,
@@ -14,8 +14,8 @@ import type { LoggerEvent, Result } from "../../../entities";
 import paramsFixture from "./fixtures/get-logger-events.params.json";
 import responseFixture from "./fixtures/get-logger-events.response.json";
 
-vi.mock("../get-logger-events.request", () => ({
-  getLoggerEvents: vi.fn(),
+vi.mock("../get-logger-events.action", () => ({
+  getLoggerEventsAction: vi.fn(),
 }));
 
 function createWrapper() {
@@ -45,7 +45,7 @@ describe("useGetLoggerEvents", () => {
       data: raw.data.map(serializeLoggerEvent),
     };
 
-    vi.mocked(getLoggerEvents).mockResolvedValueOnce(mockResponse);
+    vi.mocked(getLoggerEventsAction).mockResolvedValueOnce(mockResponse);
 
     const { result } = renderHook(() => useGetLoggerEvents(params), {
       wrapper: createWrapper(),
@@ -53,8 +53,8 @@ describe("useGetLoggerEvents", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(getLoggerEvents).toHaveBeenCalledTimes(1);
-    expect(getLoggerEvents).toHaveBeenCalledWith(params);
+    expect(getLoggerEventsAction).toHaveBeenCalledTimes(1);
+    expect(getLoggerEventsAction).toHaveBeenCalledWith(params);
     expect(result.current.data).toEqual(mockResponse);
     expect(result.current.data?.data[0].deviceId).toBe("DEV003");
     expect(result.current.data?.data[0].createdAt).toBeInstanceOf(Date);

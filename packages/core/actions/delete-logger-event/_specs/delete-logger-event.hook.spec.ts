@@ -4,7 +4,7 @@ import { createElement, type PropsWithChildren } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import { useDeleteLoggerEvent } from "../delete-logger-event.hook";
-import { deleteLoggerEvent } from "../delete-logger-event.request";
+import { deleteLoggerEventAction } from "../delete-logger-event.action";
 import type {
   DeleteLoggerEventParams,
   DeleteLoggerEventResponse,
@@ -12,8 +12,8 @@ import type {
 import paramsFixture from "./fixtures/delete-logger-event.params.json";
 import responseFixture from "./fixtures/delete-logger-event.response.json";
 
-vi.mock("../delete-logger-event.request", () => ({
-  deleteLoggerEvent: vi.fn(),
+vi.mock("../delete-logger-event.action", () => ({
+  deleteLoggerEventAction: vi.fn(),
 }));
 
 function createWrapper() {
@@ -39,7 +39,7 @@ describe("useDeleteLoggerEvent", () => {
     const params = paramsFixture as DeleteLoggerEventParams;
     const mockResponse = responseFixture as DeleteLoggerEventResponse;
 
-    vi.mocked(deleteLoggerEvent).mockResolvedValueOnce(mockResponse);
+    vi.mocked(deleteLoggerEventAction).mockResolvedValueOnce(mockResponse);
 
     const { result } = renderHook(() => useDeleteLoggerEvent(), {
       wrapper: createWrapper(),
@@ -49,8 +49,10 @@ describe("useDeleteLoggerEvent", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(deleteLoggerEvent).toHaveBeenCalledTimes(1);
-    expect(vi.mocked(deleteLoggerEvent).mock.calls[0]?.[0]).toEqual(params);
+    expect(deleteLoggerEventAction).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(deleteLoggerEventAction).mock.calls[0]?.[0]).toEqual(
+      params,
+    );
     expect(result.current.data).toEqual(mockResponse);
     expect(result.current.data?.deleted).toBe(true);
   });

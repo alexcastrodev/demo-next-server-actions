@@ -1,5 +1,5 @@
 import { loginAction } from "core/actions/login/login.action";
-import ptBR from "@/packages/core/i18n/locales/pt-BR";
+import ptBR from "core/i18n/locales/pt-BR";
 import { LoginPageForm } from "./_partials/login-page-form";
 
 const t = ptBR.auth;

@@ -4,7 +4,7 @@ import { createElement, type PropsWithChildren } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import { useUpdateLoggerEvent } from "../update-logger-event.hook";
-import { updateLoggerEvent } from "../update-logger-event.request";
+import { updateLoggerEventAction } from "../update-logger-event.action";
 import type {
   UpdateLoggerEventParams,
   UpdateLoggerEventRawResponse,
@@ -13,8 +13,8 @@ import { serializeLoggerEvent } from "../../../serializers";
 import paramsFixture from "./fixtures/update-logger-event.params.json";
 import responseFixture from "./fixtures/update-logger-event.response.json";
 
-vi.mock("../update-logger-event.request", () => ({
-  updateLoggerEvent: vi.fn(),
+vi.mock("../update-logger-event.action", () => ({
+  updateLoggerEventAction: vi.fn(),
 }));
 
 function createWrapper() {
@@ -41,7 +41,7 @@ describe("useUpdateLoggerEvent", () => {
     const raw = responseFixture as UpdateLoggerEventRawResponse;
     const mockResponse = serializeLoggerEvent(raw);
 
-    vi.mocked(updateLoggerEvent).mockResolvedValueOnce(mockResponse);
+    vi.mocked(updateLoggerEventAction).mockResolvedValueOnce(mockResponse);
 
     const { result } = renderHook(() => useUpdateLoggerEvent(), {
       wrapper: createWrapper(),
@@ -51,8 +51,10 @@ describe("useUpdateLoggerEvent", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(updateLoggerEvent).toHaveBeenCalledTimes(1);
-    expect(vi.mocked(updateLoggerEvent).mock.calls[0]?.[0]).toEqual(params);
+    expect(updateLoggerEventAction).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(updateLoggerEventAction).mock.calls[0]?.[0]).toEqual(
+      params,
+    );
     expect(result.current.data).toEqual(mockResponse);
     expect(result.current.data?.keyTag).toBe("TAG0901-UPDATED");
     expect(result.current.data?.updatedAt).toBeInstanceOf(Date);
