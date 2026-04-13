@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { updateLoggerEvent } from "./update-logger-event.request";
+import { updateLoggerEventAction } from "./update-logger-event.action";
 import type {
   UpdateLoggerEventMutationProps,
   UpdateLoggerEventParams,
@@ -11,7 +11,7 @@ export function useUpdateLoggerEvent(
 ) {
   return useMutation<UpdateLoggerEventResponse, Error, UpdateLoggerEventParams>(
     {
-      mutationFn: updateLoggerEvent,
+      mutationFn: updateLoggerEventAction,
       ...mutationProps,
     },
   );

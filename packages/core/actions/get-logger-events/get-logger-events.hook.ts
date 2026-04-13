@@ -3,7 +3,7 @@ import {
   useQuery,
   type UseQueryOptions,
 } from "@tanstack/react-query";
-import { getLoggerEvents } from "./get-logger-events.request";
+import { getLoggerEventsAction } from "./get-logger-events.action";
 import type { GetLoggerEventsParams } from "./get-logger-events.types";
 import type { LoggerEvent, Result } from "../../entities";
 
@@ -22,7 +22,7 @@ export function useGetLoggerEvents(
       params.sort_by ?? null,
       params.sort_dir ?? null,
     ],
-    queryFn: () => getLoggerEvents(params),
+    queryFn: () => getLoggerEventsAction(params),
     placeholderData: keepPreviousData,
     ...queryProps,
   });

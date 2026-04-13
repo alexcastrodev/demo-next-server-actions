@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { HttpClient } from "./http-client";
+import { applyResponseInterceptor } from "./interceptors/response";
 
 vi.mock("./interceptors/request", () => ({
   applyRequestInterceptor: (headers: Headers, token?: string) => {
@@ -117,10 +118,7 @@ describe("HttpClient", () => {
   it("sends Authorization header when defaultToken is provided", async () => {
     mockFetch.mockResolvedValue(makeResponse({ id: 1 }));
 
-    const authedClient = new HttpClient(
-      "https://api.example.com",
-      "my-token",
-    );
+    const authedClient = new HttpClient("https://api.example.com", "my-token");
     await authedClient.get("/users/1");
 
     const [, init] = mockFetch.mock.calls[0];
@@ -142,5 +140,58 @@ describe("HttpClient", () => {
     expect((init.headers as Headers).get("Authorization")).toBe(
       "Bearer override-token",
     );
+  });
+
+  describe("onError interceptor", () => {
+    beforeEach(() => {
+      vi.mocked(applyResponseInterceptor).mockReset();
+    });
+
+    it("calls onError when response interceptor throws", async () => {
+      const error = new Response(null, { status: 401 });
+      vi.mocked(applyResponseInterceptor).mockRejectedValue(error);
+      mockFetch.mockResolvedValue(makeResponse(null, 401));
+
+      const onError = vi.fn();
+      const clientWithHandler = new HttpClient(
+        "https://api.example.com",
+        undefined,
+        onError,
+      );
+
+      await expect(clientWithHandler.get("/protected")).rejects.toThrow();
+      expect(onError).toHaveBeenCalledWith(error);
+    });
+
+    it("rethrows the error after calling onError", async () => {
+      const error = new Response(null, { status: 401 });
+      vi.mocked(applyResponseInterceptor).mockRejectedValue(error);
+      mockFetch.mockResolvedValue(makeResponse(null, 401));
+
+      const clientWithHandler = new HttpClient(
+        "https://api.example.com",
+        undefined,
+        vi.fn(),
+      );
+
+      await expect(clientWithHandler.get("/protected")).rejects.toBe(error);
+    });
+
+    it("does not call onError when request succeeds", async () => {
+      vi.mocked(applyResponseInterceptor).mockResolvedValue(
+        makeResponse({ id: 1 }),
+      );
+      mockFetch.mockResolvedValue(makeResponse({ id: 1 }));
+
+      const onError = vi.fn();
+      const clientWithHandler = new HttpClient(
+        "https://api.example.com",
+        undefined,
+        onError,
+      );
+
+      await clientWithHandler.get("/users/1");
+      expect(onError).not.toHaveBeenCalled();
+    });
   });
 });

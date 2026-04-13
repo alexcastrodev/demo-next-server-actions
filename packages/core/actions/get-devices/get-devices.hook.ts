@@ -1,5 +1,5 @@
 import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
-import { getDevices } from "./get-devices.request";
+import { getDevicesAction } from "./get-devices.action";
 import type { GetDevicesResponse } from "../../entities";
 
 export const getDevicesKey = ["devices"];
@@ -9,7 +9,7 @@ export function useGetDevices(
 ) {
   return useQuery<GetDevicesResponse>({
     queryKey: getDevicesKey,
-    queryFn: getDevices,
+    queryFn: getDevicesAction,
     ...queryProps,
   });
 }

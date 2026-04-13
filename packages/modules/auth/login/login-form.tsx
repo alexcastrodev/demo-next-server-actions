@@ -1,8 +1,8 @@
 import { loginAction } from "core/actions/login/login.action";
-import { resources } from "core/i18n";
+import ptBR from "@/packages/core/i18n/locales/pt-BR";
 import { LoginPageForm } from "./_partials/login-page-form";
 
-const t = resources["pt-BR"].translation.auth;
+const t = ptBR.auth;
 
 export function LoginForm() {
   return (

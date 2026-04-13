@@ -1,3 +1,5 @@
+"use client";
+
 import { Box } from "@mantine/core";
 import type { AppShellSectionProps } from "../app-shell.types";
 

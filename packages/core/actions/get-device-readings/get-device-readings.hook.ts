@@ -3,7 +3,7 @@ import {
   useQuery,
   type UseQueryOptions,
 } from "@tanstack/react-query";
-import { getDeviceReadings } from "./get-device-readings.request";
+import { getDeviceReadingsAction } from "./get-device-readings.action";
 import type {
   GetDeviceReadingsParams,
   GetDeviceReadingsResponse,
@@ -25,7 +25,7 @@ export function useGetDeviceReadings(
       params.page,
       params.perPage,
     ),
-    queryFn: () => getDeviceReadings(params),
+    queryFn: () => getDeviceReadingsAction(params),
     enabled: Boolean(params.deviceId),
     placeholderData: keepPreviousData,
     ...queryProps,

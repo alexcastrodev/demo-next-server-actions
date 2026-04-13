@@ -13,6 +13,7 @@ export class HttpClient {
   constructor(
     private readonly baseURL: string,
     private readonly defaultToken?: string,
+    private readonly onError?: (error: unknown) => void,
   ) {}
 
   async request<T>(
@@ -42,7 +43,12 @@ export class HttpClient {
       body: body !== undefined ? JSON.stringify(body) : undefined,
     });
 
-    await applyResponseInterceptor(response);
+    try {
+      await applyResponseInterceptor(response);
+    } catch (error) {
+      this.onError?.(error);
+      throw error;
+    }
 
     return response.json() as Promise<T>;
   }

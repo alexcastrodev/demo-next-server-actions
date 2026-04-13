@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { deleteLoggerEvent } from "./delete-logger-event.request";
+import { deleteLoggerEventAction } from "./delete-logger-event.action";
 import type {
   DeleteLoggerEventMutationProps,
   DeleteLoggerEventParams,
@@ -11,7 +11,7 @@ export function useDeleteLoggerEvent(
 ) {
   return useMutation<DeleteLoggerEventResponse, Error, DeleteLoggerEventParams>(
     {
-      mutationFn: deleteLoggerEvent,
+      mutationFn: deleteLoggerEventAction,
       ...mutationProps,
     },
   );

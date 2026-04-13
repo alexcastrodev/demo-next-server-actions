@@ -22,7 +22,9 @@ function renderForm(action = vi.fn()) {
       passwordPlaceholder={labels.passwordPlaceholder}
       submitLabel={labels.submit}
     />,
-    { wrapper: ({ children }) => <MantineProvider>{children}</MantineProvider> },
+    {
+      wrapper: ({ children }) => <MantineProvider>{children}</MantineProvider>,
+    },
   );
 }
 
@@ -30,9 +32,7 @@ describe("LoginPageForm", () => {
   it("renders email input, password input and submit button", () => {
     renderForm();
 
-    expect(
-      screen.getByPlaceholderText(labels.emailPlaceholder),
-    ).toBeDefined();
+    expect(screen.getByPlaceholderText(labels.emailPlaceholder)).toBeDefined();
     expect(
       screen.getByPlaceholderText(labels.passwordPlaceholder),
     ).toBeDefined();
