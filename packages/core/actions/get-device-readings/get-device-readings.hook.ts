@@ -17,7 +17,7 @@ export const getDeviceReadingsKey = (
 
 export function useGetDeviceReadings(
   params: GetDeviceReadingsParams,
-  queryProps?: UseQueryOptions<GetDeviceReadingsResponse>,
+  queryProps?: Omit<UseQueryOptions<GetDeviceReadingsResponse>, "queryKey">,
 ) {
   return useQuery<GetDeviceReadingsResponse>({
     queryKey: getDeviceReadingsKey(

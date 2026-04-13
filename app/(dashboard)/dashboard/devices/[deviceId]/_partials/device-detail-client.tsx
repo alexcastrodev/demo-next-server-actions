@@ -28,7 +28,6 @@ export function DeviceDetailClient({
     { deviceId, page: page + 1, perPage },
     {
       initialData,
-      queryKey: ['readings'],
     },
   );
 
