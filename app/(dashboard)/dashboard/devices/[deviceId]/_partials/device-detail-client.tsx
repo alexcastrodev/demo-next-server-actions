@@ -26,7 +26,10 @@ export function DeviceDetailClient({
 
   const { data, isFetching } = useGetDeviceReadings(
     { deviceId, page: page + 1, perPage },
-    { initialData },
+    {
+      initialData,
+      queryKey: ['readings'],
+    },
   );
 
   return (
