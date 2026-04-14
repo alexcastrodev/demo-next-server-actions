@@ -1,13 +1,10 @@
-import {
-  keepPreviousData,
-  useQuery,
-  type UseQueryOptions,
-} from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getDeviceReadingsAction } from "./get-device-readings.action";
 import type {
   GetDeviceReadingsParams,
   GetDeviceReadingsResponse,
 } from "./get-device-readings.types";
+import type { CustomUseQueryOptions } from "../../types/query";
 
 export const getDeviceReadingsKey = (
   deviceId: string,
@@ -17,7 +14,7 @@ export const getDeviceReadingsKey = (
 
 export function useGetDeviceReadings(
   params: GetDeviceReadingsParams,
-  queryProps?: Omit<UseQueryOptions<GetDeviceReadingsResponse>, "queryKey">,
+  queryProps?: CustomUseQueryOptions<GetDeviceReadingsResponse>,
 ) {
   return useQuery<GetDeviceReadingsResponse>({
     queryKey: getDeviceReadingsKey(

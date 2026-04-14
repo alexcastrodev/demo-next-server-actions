@@ -12,7 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getLoggerEventsKey } from "core/actions/get-logger-events/get-logger-events.hook";
 import type { LoggerEvent, Result } from "core/entities";
 import { IotEventsDatatable } from "modules/dashboard/iot-events-datatable";
-import { EditLoggerEventModal } from "./edit-logger-event-modal";
+import { EditLoggerEventModal } from "modules/dashboard/edit-logger-event-modal";
 
 interface IotEventsClientProps {
   initialData: Result<LoggerEvent>;

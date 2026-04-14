@@ -1,5 +1,7 @@
+import { Group, Title } from "@mantine/core";
 import { getDeviceReadingsAction } from "core/actions/get-device-readings/get-device-readings.action";
-import { DeviceDetailClient } from "./_partials/device-detail-client";
+import { BackButton } from "modules/dashboard/back-button";
+import { DeviceDetailClient } from "modules/dashboard/device-detail-client";
 
 interface DeviceDetailPageProps {
   params: Promise<{ deviceId: string }>;
@@ -15,5 +17,13 @@ export default async function DeviceDetailPage({
     perPage: 10,
   });
 
-  return <DeviceDetailClient deviceId={deviceId} initialData={initialData} />;
+  return (
+    <>
+      <Group align="center" mb="lg" gap="xs">
+        <BackButton />
+        <Title order={2}>{deviceId}</Title>
+      </Group>
+      <DeviceDetailClient deviceId={deviceId} initialData={initialData} />
+    </>
+  );
 }
